@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bangalore House Price Predictor ML App</title>
+
+  <style>
+    body {
+      background-image: linear-gradient(to right, #1c1f26, #3a4a6b);
+      color: #d4e1f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #d4e1f4;
+      text-shadow: 2px 2px 5px #000;
+      font-size: 2.5em;
+      margin-top: 20px;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: #d4e1f4;
+      font-size: 1.2em;
+    }
+
+    .form-container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background: #2c3e50;
+      color: #d4e1f4;
+      font-size: 1em;
+      transition: all 0.3s;
+    }
+
+    input[type="number"]:hover, input[type="text"]:hover {
+      transform: scale(1.02);
+      background-color: #34495e;
+    }
+
+    input[type="number"]:focus, input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(41, 128, 185, 0.8);
+    }
+
+    .button_css {
+      color: #ffffff;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #2193b0, #6dd5ed);
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      display: inline-block;
+      cursor: url('https://cdn.jsdelivr.net/gh/gnikoloff/custom-cursors@main/cursors/hand.cur'), pointer;
+      transition: background-color 0.4s ease, transform 0.3s;
+    }
+
+    .button_css:hover {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      transform: scale(1.1);
+    }
+
+    .login h1 {
+      animation: fadeIn 2s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .login form {
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .prediction-text {
+      color: #1abc9c;
+      font-size: 1.5em;
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .form-container {
+      animation: glowEffect 3s infinite;
+    }
+
+    @keyframes glowEffect {
+      0% {
+        box-shadow: 0 0 10px rgba(41, 128, 185, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(41, 128, 185, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(41, 128, 185, 0.5);
+      }
+    }
+
+    .button_css {
+      cursor: url('https://cdn.jsdelivr.net/gh/gnikoloff/custom-cursors@main/cursors/hand.cur'), pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <img src="static/images/housebanner.jpg" alt="House Banner" style="width:100%; border-radius: 0 0 15px 15px;">
+  </div>
+
+  <div class="login">
+    <div class="form-container">
+      <center>
+        <form action="{{ url_for('predict') }}" method="post">
+          <h1>*Enter the Information of House to Predict the Price*</h1>
+
+          <input type="number" name="bathrooms" placeholder="Bathrooms" required />
+          <input type="number" name="balcony" placeholder="Balcony" required />
+          <input type="number" name="total_sqft_int" placeholder="Total Square Foot" required step=".01" />
+          <input type="number" name="bhk" placeholder="BHK" required />
+          <input type="number" name="price_per_sqft" placeholder="Price Per Square Foot" required step=".01" />
+          <input type="text" name="area_type" placeholder="Area Type" required />
+          <input type="text" name="availability" placeholder="House Availability" required />
+          <input type="text" name="location" placeholder="House Location" required />
+
+          <br><br>
+
+          <button type="submit" class="button_css">Predict House Price</button>
+        </form>
+      </center>
+
+      <div>
+        <center>
+          <h2 class="prediction-text">{{ prediction_text }}</h2>
+        </center>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
